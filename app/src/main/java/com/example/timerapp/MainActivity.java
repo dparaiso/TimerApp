@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnStart , btnQuickStart;
     private EditText secondInput;
+    private EditText minuteInput;
     boolean secondsCheck = false;
 
     @Override
@@ -23,11 +24,16 @@ public class MainActivity extends AppCompatActivity {
         btnQuickStart =  (Button) findViewById(R.id.quickStart);
 
         secondInput = (EditText) findViewById(R.id.seconds);
+        minuteInput = (EditText) findViewById(R.id.minutes);
 
         btnStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
+                int mins = Integer.parseInt(minuteInput.getText().toString());
+                int secs = Integer.parseInt(secondInput.getText().toString());
+                intent.putExtra("minutes", mins);
+                intent.putExtra("seconds", secs);
                 startActivity(intent);
             }
         });
@@ -39,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 secondsCheck = CheckSeconds();
                 if (secondsCheck){
                     Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
+                    int mins = Integer.parseInt(minuteInput.getText().toString());
+                    int secs = Integer.parseInt(secondInput.getText().toString());
+                    intent.putExtra("minutes", mins);
+                    intent.putExtra("seconds", secs);
                     startActivity(intent);
                 }
             }

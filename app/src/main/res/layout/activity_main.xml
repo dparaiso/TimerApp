@@ -47,19 +47,34 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/seconds"-->
 <!--        app:layout_constraintVertical_bias="0.095" />-->
 
+    <EditText
+        android:id="@+id/minutes"
+        android:layout_width="103dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="minutes"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/seconds"
-        android:layout_width="333dp"
-        android:layout_height="0dp"
+        android:layout_width="104dp"
+        android:layout_height="46dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="84dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Set Seconds"
+        android:hint="seconds"
+        android:gravity="center"
         android:inputType="number"
         android:maxLength="2"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
