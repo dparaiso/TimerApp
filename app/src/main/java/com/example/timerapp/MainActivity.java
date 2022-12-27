@@ -10,9 +10,9 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart;
-    private EditText minTimerText;
-    private EditText secTimerText;
+    private Button btnStart , btnQuickStart;
+    private EditText secondInput;
+    boolean secondsCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +20,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnStart =  (Button) findViewById(R.id.start);
-        minTimerText = (EditText) findViewById(R.id.minTimer);
-        secTimerText = (EditText) findViewById(R.id.secTimer);
+        btnQuickStart =  (Button) findViewById(R.id.quickStart);
+
+        secondInput = (EditText) findViewById(R.id.seconds);
 
         btnStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
-                int secs = Integer.parseInt(secTimerText.getText().toString());
-                int mins = Integer.parseInt(minTimerText.getText().toString());
-                intent.putExtra("seconds", secs);
-                intent.putExtra("minutes", mins);
                 startActivity(intent);
             }
         });
+
+        btnQuickStart.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                secondsCheck = CheckSeconds();
+                if (secondsCheck){
+                    Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+    }
+    private boolean CheckSeconds(){
+        if (Integer.parseInt(secondInput.getText().toString()) >= 60){
+            secondInput.setError("Invalid seconds, set to under 60!");
+            return false;
+        }
+        return true;
     }
 
 }
