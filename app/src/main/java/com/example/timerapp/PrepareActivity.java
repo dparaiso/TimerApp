@@ -33,7 +33,7 @@ public class PrepareActivity extends AppCompatActivity {
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
         mButtonStartPause = findViewById(R.id.button_start_pause);
-        mButtonReset = findViewById(R.id.button_reset);
+//        mButtonReset = findViewById(R.id.button_reset);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +46,12 @@ public class PrepareActivity extends AppCompatActivity {
             }
         });
 
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
+//        mButtonReset.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                resetTimer();
+//            }
+//        });
 
         updateCountDownText();
     }
@@ -68,28 +68,28 @@ public class PrepareActivity extends AppCompatActivity {
                 mTimerRunning = false;
                 mButtonStartPause.setText("Start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+//                mButtonReset.setVisibility(View.VISIBLE);
             }
         }.start();
 
         mTimerRunning = true;
         mButtonStartPause.setText("pause");
-        mButtonReset.setVisibility(View.INVISIBLE);
+//        mButtonReset.setVisibility(View.INVISIBLE);
     }
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonStartPause.setText("Start");
-        mButtonReset.setVisibility(View.VISIBLE);
+//        mButtonReset.setVisibility(View.VISIBLE);
     }
 
-    private void resetTimer() {
-        mTimeLeftInMillis = START_TIME_IN_MILLIS;
-        updateCountDownText();
-        mButtonReset.setVisibility(View.INVISIBLE);
-        mButtonStartPause.setVisibility(View.VISIBLE);
-    }
+//    private void resetTimer() {
+//        mTimeLeftInMillis = START_TIME_IN_MILLIS;
+//        updateCountDownText();
+//        mButtonReset.setVisibility(View.INVISIBLE);
+//        mButtonStartPause.setVisibility(View.VISIBLE);
+//    }
 
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
