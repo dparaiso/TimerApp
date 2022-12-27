@@ -35,12 +35,14 @@ public class PrepareActivity extends AppCompatActivity {
         mButtonStartPause = findViewById(R.id.button_start_pause);
 //        mButtonReset = findViewById(R.id.button_reset);
 
+        startTimer();
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTimerRunning) {
                     pauseTimer();
-                } else {
+                }
+                else  {
                     startTimer();
                 }
             }
@@ -74,6 +76,8 @@ public class PrepareActivity extends AppCompatActivity {
 
         mTimerRunning = true;
         mButtonStartPause.setText("pause");
+        mButtonStartPause.setVisibility(View.VISIBLE);
+
 //        mButtonReset.setVisibility(View.INVISIBLE);
     }
 
