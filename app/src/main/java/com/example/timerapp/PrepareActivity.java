@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.util.Locale;
+import android.widget.Toast;
+
 
 public class PrepareActivity extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS_DEFAULT = 5000;
 
     private TextView mTextViewCountDown;
+    private TextView mTextTitle;
     private Button mButtonStartPause;
     private Button mButtonReset;
     private Button mButtonMainMenu;
@@ -23,19 +26,25 @@ public class PrepareActivity extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
+    private boolean mResting;
+    private int mNumSets, setsSoFar;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS_DEFAULT;
-    private long mTimeLeftRestInMillis = 0;
+
+    private Intent mIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prepare);
-        Intent mIntent = getIntent();
-        mTimeLeftInMillis = 1000 * (60 * mIntent.getIntExtra("minutes", 0) + mIntent.getIntExtra("seconds", 0));
-        mTimeLeftRestInMillis = 1000 * (60 * mIntent.getIntExtra("minutes2", 0) + mIntent.getIntExtra("seconds2", 0));
+        mResting = false;
+        mIntent = getIntent();
+        mTimeLeftInMillis = 1000 * (60 * (long) mIntent.getIntExtra("minutes", 0) + mIntent.getIntExtra("seconds", 0) + 1);
+        mNumSets = mIntent.getIntExtra("numSets", 1);
+        Toast.makeText(this,String.valueOf(mNumSets),Toast.LENGTH_LONG).show();
+        setsSoFar = 1;
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
+        mTextTitle = findViewById(R.id.text_title);
 
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonMainMenu = findViewById(R.id.button_back_to_main_menu);
@@ -60,10 +69,16 @@ public class PrepareActivity extends AppCompatActivity {
                 }
             }
         });
-
         updateCountDownText();
     }
     private void startTimer() {
+        if (mResting){
+            mTextTitle.setText("Rest!");
+        }
+        else{
+            mTextTitle.setText("Work!");
+        }
+
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -74,6 +89,29 @@ public class PrepareActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
+                if (!mResting){
+                    if (setsSoFar != mNumSets){
+                        mTimeLeftInMillis = 1000 * (60 * (long) mIntent.getIntExtra("minutes2", 0) + mIntent.getIntExtra("seconds2", 0) + 1);
+                        mResting = true;
+                        startTimer();
+                    }
+                    else{
+                        mTextTitle.setText("Done!");
+                        return;
+                    }
+                }
+                else{ // Finished Rest
+                    mTimeLeftInMillis = 1000 * (60 * (long) mIntent.getIntExtra("minutes", 0) + mIntent.getIntExtra("seconds", 0) + 1);
+                    mResting = false;
+                    if (setsSoFar < mNumSets){ // if true, do again
+                        setsSoFar++;
+                        startTimer();
+                    }
+                    else{ // done
+                        mTextTitle.setText("Done!");
+                        return;
+                    }
+                }
                 mButtonStartPause.setText("Start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
             }
@@ -82,7 +120,6 @@ public class PrepareActivity extends AppCompatActivity {
         mTimerRunning = true;
         mButtonStartPause.setText("pause");
         mButtonStartPause.setVisibility(View.VISIBLE);
-
     }
 
     private void pauseTimer() {
