@@ -40,7 +40,6 @@ public class PrepareActivity extends AppCompatActivity {
         mIntent = getIntent();
         mTimeLeftInMillis = 1000 * (60 * (long) mIntent.getIntExtra("minutes", 0) + mIntent.getIntExtra("seconds", 0) + 1);
         mNumSets = mIntent.getIntExtra("numSets", 1);
-        Toast.makeText(this,String.valueOf(mNumSets),Toast.LENGTH_LONG).show();
         setsSoFar = 1;
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
