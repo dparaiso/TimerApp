@@ -1,207 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="175dp">
+        <TextView
+            android:id="@+id/text_view_countdown"
+            android:layout_width="103dp"
+            android:layout_height="51dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Quick Start"
+            android:paddingLeft="500dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="155dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="100dp">
 
+        <Button
+            android:id="@+id/plus"
+            android:layout_width="64dp"
+            android:layout_height="37dp"
+            android:layout_gravity="left"
+            android:paddingLeft="100dp"
+            android:text="+"
+            android:textSize="10dp"
+            tools:layout_editor_absoluteX="3009dp"
+            tools:layout_editor_absoluteY="60dp" />
+
+        <TextView
+            android:id="@+id/text_sets"
+            android:layout_width="103dp"
+            android:layout_height="51dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingRight="10sp"
+            android:text="Sets"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="500dp"
+            tools:layout_editor_absoluteY="504dp" />
+
+        <TextView
+            android:id="@+id/text_numSets"
+            android:layout_width="63dp"
+            android:layout_height="38dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="107dp" />
+
+        <Button
+            android:id="@+id/minus"
+            android:layout_width="71dp"
+            android:layout_height="37dp"
+            android:text="-"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="60dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="220dp">
+        <TextView
+            android:id="@+id/text_rest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Rest"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            tools:layout_editor_absoluteX="284dp"
+            tools:layout_editor_absoluteY="135dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="160dp"
+        >
+        <EditText
+            android:id="@+id/minutes"
+            android:layout_width="73dp"
+            android:layout_height="88dp"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="225dp"
+            tools:layout_editor_absoluteY="233dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="200dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <EditText
+            android:id="@+id/seconds"
+            android:layout_width="78dp"
+            android:layout_height="85dp"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="303dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="200dp">
     <TextView
-        android:id="@+id/text_numSets"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/text_work"
+        android:layout_width="78dp"
+        android:layout_height="51dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="568dp"
         android:gravity="center"
-        android:text="1"
+        android:text="Work"
         android:textColor="@android:color/black"
         android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/minutes2"
-        app:layout_constraintStart_toEndOf="@+id/minutes"
-        app:layout_constraintTop_toBottomOf="@+id/text_sets" />
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="158dp" />
+</LinearLayout>
 
-    <TextView
-        android:id="@+id/text_sets"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="154dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="21dp"
-        android:gravity="center"
-        android:text="Sets"
-        android:textColor="@android:color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_numSets"
-        app:layout_constraintEnd_toStartOf="@+id/text_rest"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="160dp"
+        >
+        <EditText
+            android:id="@+id/seconds2"
+            android:layout_width="75dp"
+            android:layout_height="85dp"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="122dp"
+            tools:layout_editor_absoluteY="217dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="289dp"
+            tools:layout_editor_absoluteY="172dp" />
+
+        <EditText
+            android:id="@+id/minutes2"
+            android:layout_width="80dp"
+            android:layout_height="84dp"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="60sp"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="217dp" />
+    </LinearLayout>
+
+
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="150dp">
 
     <Button
-        android:id="@+id/minus"
-        android:layout_width="44dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="21dp"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="@+id/plus"
-        app:layout_constraintEnd_toStartOf="@+id/plus"
-        app:layout_constraintStart_toEndOf="@+id/seconds"
-        app:layout_constraintTop_toBottomOf="@+id/text_numSets" />
+        android:id="@+id/quickStart"
+        android:layout_width="131dp"
+        android:layout_height="72dp"
+        android:text="Set!"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="461dp" />
 
-    <Button
-        android:id="@+id/plus"
-        android:layout_width="44dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="25dp"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/quickStart"
-        app:layout_constraintEnd_toStartOf="@+id/seconds2"
-        app:layout_constraintStart_toEndOf="@+id/minus"
-        app:layout_constraintTop_toBottomOf="@+id/text_numSets" />
 
-    <TextView
-        android:id="@+id/text_view_countdown"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="36dp"
-        android:gravity="center"
-        android:text="Quick Start"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_numSets"
-        app:layout_constraintEnd_toStartOf="@+id/text_rest"
-        app:layout_constraintStart_toEndOf="@+id/text_work"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="365dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quickStart" />
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="561dp"
+        android:paddingLeft="30dp"/>
 
-    <Button
-        android:id="@+id/quickStart"
-        android:layout_width="94dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="37dp"
-        android:text="Set!"
-        app:layout_constraintBottom_toTopOf="@+id/start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plus" />
+</androidx.appcompat.widget.LinearLayoutCompat>
 
-    <EditText
-        android:id="@+id/seconds"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="515dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="seconds"
-        android:inputType="number"
-        android:maxLength="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/minus"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minutes" />
-
-    <TextView
-        android:id="@+id/text_work"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:text="Work"
-        android:textColor="@android:color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/minutes"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_countdown"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/minutes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="minutes"
-        android:inputType="number"
-        android:maxLength="2"
-        app:layout_constraintBottom_toTopOf="@+id/seconds"
-        app:layout_constraintEnd_toStartOf="@+id/text_numSets"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_work" />
-
-    <EditText
-        android:id="@+id/minutes2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="33dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="minutes"
-        android:inputType="number"
-        android:maxLength="2"
-        app:layout_constraintBottom_toTopOf="@+id/seconds2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_numSets"
-        app:layout_constraintTop_toBottomOf="@+id/text_rest" />
-
-    <EditText
-        android:id="@+id/seconds2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="517dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="seconds"
-        android:inputType="number"
-        android:maxLength="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/plus"
-        app:layout_constraintTop_toBottomOf="@+id/minutes2" />
-
-    <TextView
-        android:id="@+id/text_rest"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center"
-        android:text="Rest"
-        android:textColor="@android:color/black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/minutes2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_sets"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

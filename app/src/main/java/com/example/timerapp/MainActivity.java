@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,6 +110,62 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mNumSets.setText(String.format("%d", ++numSets));
+            }
+        });
+
+        secondInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(secondInput.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + secondInput.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        secondInput.setText(edible);
+                    }
+                }
+            }
+        });
+
+        minuteInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(minuteInput.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + minuteInput.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        minuteInput.setText(edible);
+                    }
+                }
+            }
+        });
+
+        second2Input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(second2Input.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + second2Input.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        second2Input.setText(edible);
+                    }
+                }
+            }
+        });
+
+        minute2Input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(minute2Input.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + minute2Input.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        minute2Input.setText(edible);
+                    }
+                }
             }
         });
 
