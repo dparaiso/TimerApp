@@ -25,7 +25,7 @@ public class PrepareActivity extends AppCompatActivity {
     private boolean mTimerRunning;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS_DEFAULT;
-
+    private long mTimeLeftRestInMillis = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,6 +33,7 @@ public class PrepareActivity extends AppCompatActivity {
         setContentView(R.layout.activity_prepare);
         Intent mIntent = getIntent();
         mTimeLeftInMillis = 1000 * (60 * mIntent.getIntExtra("minutes", 0) + mIntent.getIntExtra("seconds", 0));
+        mTimeLeftRestInMillis = 1000 * (60 * mIntent.getIntExtra("minutes2", 0) + mIntent.getIntExtra("seconds2", 0));
 
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 

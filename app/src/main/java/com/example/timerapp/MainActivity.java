@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnStart , btnQuickStart;
     private EditText secondInput;
     private EditText minuteInput;
+    private EditText second2Input;
+    private EditText minute2Input;
     boolean secondsCheck = false;
 
     @Override
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         secondInput = (EditText) findViewById(R.id.seconds);
         minuteInput = (EditText) findViewById(R.id.minutes);
+        second2Input = (EditText) findViewById(R.id.seconds2);
+        minute2Input = (EditText) findViewById(R.id.minutes2);
 
         btnStart.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -32,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
                 int mins = Integer.parseInt(minuteInput.getText().toString());
                 int secs = Integer.parseInt(secondInput.getText().toString());
+                int mins2 = Integer.parseInt(minute2Input.getText().toString());
+                int secs2 = Integer.parseInt(second2Input.getText().toString());
                 intent.putExtra("minutes", mins);
                 intent.putExtra("seconds", secs);
+                intent.putExtra("minutes2", mins2);
+                intent.putExtra("seconds2", secs2);
                 startActivity(intent);
             }
         });
@@ -47,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
                     int mins = Integer.parseInt(minuteInput.getText().toString());
                     int secs = Integer.parseInt(secondInput.getText().toString());
+                    int mins2 = Integer.parseInt(minute2Input.getText().toString());
+                    int secs2 = Integer.parseInt(second2Input.getText().toString());
                     intent.putExtra("minutes", mins);
                     intent.putExtra("seconds", secs);
+                    intent.putExtra("minutes2", mins2);
+                    intent.putExtra("seconds2", secs2);
                     startActivity(intent);
                 }
             }
