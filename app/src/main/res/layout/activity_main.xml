@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/minutes2"
+        android:layout_width="98dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="minutes"
+        android:inputType="number"
+        android:maxLength="2"
+        app:layout_constraintBottom_toTopOf="@+id/seconds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/text_view_countdown"
         android:layout_width="103dp"
@@ -34,28 +50,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quickStart" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView2"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginBottom="627dp"-->
-    <!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
-    <!--        android:textColor="#000"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.118"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/seconds"-->
-    <!--        app:layout_constraintVertical_bias="0.095" />-->
-
     <Button
         android:id="@+id/quickStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
+        android:layout_width="95dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="128dp"
         android:layout_marginBottom="83dp"
         android:text="Set!"
         app:layout_constraintBottom_toTopOf="@+id/start"
@@ -64,8 +63,8 @@
 
     <EditText
         android:id="@+id/minutes"
-        android:layout_width="103dp"
-        android:layout_height="0dp"
+        android:layout_width="100dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="18dp"
         android:ems="10"
         android:gravity="center"
@@ -74,6 +73,7 @@
         android:maxLength="2"
         app:layout_constraintBottom_toTopOf="@+id/seconds"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_countdown" />
 
@@ -89,6 +89,7 @@
         android:maxLength="2"
         app:layout_constraintBottom_toTopOf="@+id/quickStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/minutes" />
 

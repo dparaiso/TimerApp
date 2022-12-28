@@ -18,6 +18,7 @@ public class PrepareActivity extends AppCompatActivity {
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
     private Button mButtonReset;
+    private Button mButtonMainMenu;
 
     private CountDownTimer mCountDownTimer;
 
@@ -36,6 +37,15 @@ public class PrepareActivity extends AppCompatActivity {
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
 
         mButtonStartPause = findViewById(R.id.button_start_pause);
+        mButtonMainMenu = findViewById(R.id.button_back_to_main_menu);
+
+        mButtonMainMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrepareActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         startTimer();
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
