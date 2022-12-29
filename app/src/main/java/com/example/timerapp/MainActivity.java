@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart , btnQuickStart, btnMinus, btnPlus;
+    private Button btnAdd , btnQuickStart, btnMinus, btnPlus;
     private TextView mNumSets;
     private EditText secondInput;
     private EditText minuteInput;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         numSets = 1;
 
-        btnStart =  (Button) findViewById(R.id.start);
+        btnAdd =  (Button) findViewById(R.id.add);
         btnQuickStart =  (Button) findViewById(R.id.quickStart);
         btnMinus = (Button) findViewById(R.id.minus);
         btnPlus = (Button) findViewById(R.id.plus);
@@ -42,28 +42,10 @@ public class MainActivity extends AppCompatActivity {
         second2Input = (EditText) findViewById(R.id.seconds2);
         minute2Input = (EditText) findViewById(R.id.minutes2);
 
-        btnStart.setOnClickListener(new View.OnClickListener(){
+        btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
-                if (!minuteInput.getText().toString().matches("")){
-                    int mins = Integer.parseInt(minuteInput.getText().toString());
-                    intent.putExtra("minutes", mins);
-                }
-                if (!secondInput.getText().toString().matches("")){
-                    int secs = Integer.parseInt(secondInput.getText().toString());
-                    intent.putExtra("seconds", secs);
-                }
-                if (!minute2Input.getText().toString().matches("")){
-                    int mins2 = Integer.parseInt(minute2Input.getText().toString());
-                    intent.putExtra("minutes2", mins2);
-
-                }
-                if (!second2Input.getText().toString().matches("")){
-                    int secs2 = Integer.parseInt(second2Input.getText().toString());
-                    intent.putExtra("seconds2", secs2);
-                }
-                intent.putExtra("numSets", numSets);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
@@ -72,7 +54,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(minuteInput.getText().toString().matches("")&&secondInput.getText().toString().matches("")){
+                    return;
+                }else if(minuteInput.getText().toString().matches("00")&&secondInput.getText().toString().matches("00")){
+                    return;
+                }else if(minuteInput.getText().toString().matches("")&&secondInput.getText().toString().matches("00")){
+                    return;
+                }
                 secondsCheck = CheckSeconds();
+
                 if (secondsCheck){
                     Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
                     if (!minuteInput.getText().toString().matches("")){
@@ -125,12 +115,15 @@ public class MainActivity extends AppCompatActivity {
                         Editable edible = new SpannableStringBuilder(tmp);
                         secondInput.setText(edible);
                     }
-//
-//                    isSecondsCheck = CheckSeconds();
-//                    if(isSecondsCheck){
-//                        secondInput.setError("Invalid seconds, set to under 60!");
-//
-//                    }
+
+                    if(secondInput.getText().toString().length() > 1){
+                        isSecondsCheck = CheckSeconds();
+                        if(!isSecondsCheck){
+                            secondInput.setError("Invalid seconds, set to under 60!");
+
+                        }
+                    }
+
                 }
             }
         });
@@ -159,11 +152,14 @@ public class MainActivity extends AppCompatActivity {
                         Editable edible = new SpannableStringBuilder(tmp);
                         second2Input.setText(edible);
                     }
-//                    isSecondsCheck2 = CheckSeconds2();
-//                    if(isSecondsCheck2){
-//                        second2Input.setError("Invalid seconds, set to under 60!");
-//
-//                    }
+                    if(second2Input.getText().toString().length() > 1){
+                        isSecondsCheck2 = CheckSeconds2();
+                        if(!isSecondsCheck2){
+                            second2Input.setError("Invalid seconds, set to under 60!");
+
+                        }
+                    }
+
                 }
             }
         });
