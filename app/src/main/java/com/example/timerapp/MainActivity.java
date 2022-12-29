@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText second2Input;
     private EditText minute2Input;
     boolean secondsCheck = false;
+    boolean isSecondsCheck = false;
+    boolean isSecondsCheck2 = false;
     private int numSets;
 
     @Override
@@ -50,7 +54,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(minuteInput.getText().toString().matches("")&&secondInput.getText().toString().matches("")){
+                    return;
+                }else if(minuteInput.getText().toString().matches("00")&&secondInput.getText().toString().matches("00")){
+                    return;
+                }else if(minuteInput.getText().toString().matches("")&&secondInput.getText().toString().matches("00")){
+                    return;
+                }
                 secondsCheck = CheckSeconds();
+
                 if (secondsCheck){
                     Intent intent = new Intent(MainActivity.this, PrepareActivity.class);
                     if (!minuteInput.getText().toString().matches("")){
@@ -93,10 +105,91 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        secondInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(secondInput.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + secondInput.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        secondInput.setText(edible);
+                    }
+
+                    if(secondInput.getText().toString().length() > 1){
+                        isSecondsCheck = CheckSeconds();
+                        if(!isSecondsCheck){
+                            secondInput.setError("Invalid seconds, set to under 60!");
+
+                        }
+                    }
+
+                }
+            }
+        });
+
+        minuteInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(minuteInput.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + minuteInput.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        minuteInput.setText(edible);
+                    }
+                }
+            }
+        });
+
+        second2Input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(second2Input.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + second2Input.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        second2Input.setText(edible);
+                    }
+                    if(second2Input.getText().toString().length() > 1){
+                        isSecondsCheck2 = CheckSeconds2();
+                        if(!isSecondsCheck2){
+                            second2Input.setError("Invalid seconds, set to under 60!");
+
+                        }
+                    }
+
+                }
+            }
+        });
+
+        minute2Input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(minute2Input.getText().toString().length() == 1){
+                        String tmp = "0";
+                        tmp = tmp + minute2Input.getText().toString();
+                        Editable edible = new SpannableStringBuilder(tmp);
+                        minute2Input.setText(edible);
+                    }
+                }
+            }
+        });
+
     }
     private boolean CheckSeconds(){
         if (Integer.parseInt(secondInput.getText().toString()) >= 60){
             secondInput.setError("Invalid seconds, set to under 60!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean CheckSeconds2(){
+        if (Integer.parseInt(second2Input.getText().toString()) >= 60){
+            second2Input.setError("Invalid seconds, set to under 60!");
             return false;
         }
         return true;
