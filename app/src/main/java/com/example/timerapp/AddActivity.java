@@ -15,10 +15,11 @@ import android.widget.Toast;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 
-    LinearLayout layoutList;
-    Button buttonAdd;
-    Button buttonSubmitWorkout;
-    Workout workout = new Workout();
+    private LinearLayout layoutList;
+    private Button buttonAdd;
+    private Button buttonSubmitWorkout;
+    private Workout workout = new Workout();
+    private int numSets;
 //    ArrayList<Exercise> workoutList = new ArrayList<>();
 
     @Override
@@ -46,7 +47,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             case R.id.button_submit_list:
 
-                if(checkIfValidAndRead()){
+                if(checkValidityAndUpdate()){
 
                     Intent intent = new Intent(AddActivity.this, ActivityCricketers.class);
                     Bundle bundle = new Bundle();
@@ -63,7 +64,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     private boolean checkValidityAndUpdate() {
         workout.clearList();
-        boolean valid = true;
 
         for (int i = 0; i < layoutList.getChildCount(); i++) {
 
@@ -71,10 +71,10 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             // Get information from the layout: name, sets, work and rest time
             EditText exerciseName = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
-            EditText workMinutes = (EditText) findViewById(R.id.text_work_minutes);
-            EditText workSeconds = (EditText) findViewById(R.id.text_work_seconds);
-            EditText restMinutes = (EditText) findViewById(R.id.text_rest_minutes);
-            EditText restSeconds = (EditText) findViewById(R.id.text_rest_seconds);
+            EditText workMinutes = (EditText) findViewById(R.id.work_minutes);
+            EditText workSeconds = (EditText) findViewById(R.id.work_seconds);
+            EditText restMinutes = (EditText) findViewById(R.id.rest_minutes);
+            EditText restSeconds = (EditText) findViewById(R.id.rest_seconds);
             TextView numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
 
             if (!checkValidTimes(workSeconds, restSeconds)){
@@ -93,6 +93,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             workout.addExercise(newExercise);
         }
+
+        if (workout.getNumExercises() == 0){
+            Toast.makeText(this, "Add Exercises First!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         return true;
     }
 
@@ -107,11 +112,30 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void addView(){
+        numSets = 1;
+
         final View exerciseView = getLayoutInflater().inflate(R.layout.add_exercise, null, false); // add_exercise.xml
 
-        // Fill in later when have xml file !!!!
-        EditText editText = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
+        EditText text_exerciseName = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
+        EditText text_workMinutes = (EditText) exerciseView.findViewById(R.id.work_minutes);
+        EditText text_workSeconds = (EditText) exerciseView.findViewById(R.id.work_seconds);
+        EditText text_restMinutes = (EditText) exerciseView.findViewById(R.id.rest_minutes);
+        EditText text_restSeconds = (EditText) exerciseView.findViewById(R.id.rest_seconds);
+        TextView text_numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
+        Button button_setsPlus = (Button) exerciseView.findViewById(R.id.plus);
+        Button button_setsMinus = (Button) exerciseView.findViewById(R.id.minus);
+
         ImageView imageClose = (ImageView) exerciseView.findViewById(R.id.image_remove);
+
+        button_setsMinus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(numSets > 1){
+                    numSets--;
+                }
+                mNumSets.setText(String.format("%d", numSets));
+            }
+        });
 
         imageClose.setOnClickListener(new View.OnClickListener() {
             @Override

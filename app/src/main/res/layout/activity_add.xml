@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".AddActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Preset Workout"
+        android:text="Add Preset"
         android:textSize="15sp"
         android:layout_margin="15dp"
-        android:textColor="@color/black"></TextView>
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:id="@+id/layout_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"/>
 
     <Button
         android:id="@+id/button_add"
@@ -31,9 +31,7 @@
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:drawableRight="@drawable/ic_add"
-        ></Button>
+        android:paddingRight="10dp"/>
 
     <Button
         android:id="@+id/button_submit_list"
@@ -46,7 +44,6 @@
         android:textColor="@color/white"
         android:textAllCaps="false"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        ></Button>
+        android:paddingRight="10dp" />
 
 </LinearLayout>
