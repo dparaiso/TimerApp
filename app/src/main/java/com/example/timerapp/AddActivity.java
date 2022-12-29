@@ -19,8 +19,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private Button buttonAdd;
     private Button buttonSubmitWorkout;
     private Workout workout = new Workout();
-    private int numSets;
-//    ArrayList<Exercise> workoutList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +47,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
                 if(checkValidityAndUpdate()){
 
-                    Intent intent = new Intent(AddActivity.this, ActivityCricketers.class);
+                    Intent intent = new Intent(AddActivity.this, MainActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("list",cricketersList);
+                    bundle.putSerializable("list", workout);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -112,8 +110,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void addView(){
-        numSets = 1;
-
         final View exerciseView = getLayoutInflater().inflate(R.layout.add_exercise, null, false); // add_exercise.xml
 
         EditText text_exerciseName = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
@@ -121,19 +117,28 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         EditText text_workSeconds = (EditText) exerciseView.findViewById(R.id.work_seconds);
         EditText text_restMinutes = (EditText) exerciseView.findViewById(R.id.rest_minutes);
         EditText text_restSeconds = (EditText) exerciseView.findViewById(R.id.rest_seconds);
-        TextView text_numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
+        final TextView text_numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
         Button button_setsPlus = (Button) exerciseView.findViewById(R.id.plus);
         Button button_setsMinus = (Button) exerciseView.findViewById(R.id.minus);
 
-        ImageView imageClose = (ImageView) exerciseView.findViewById(R.id.image_remove);
+        ImageView imageClose = (ImageView) exerciseView.findViewById(R.id.exercise_remove);
 
         button_setsMinus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                int numSets = Integer.parseInt(text_numSets.getText().toString());
                 if(numSets > 1){
                     numSets--;
                 }
-                mNumSets.setText(String.format("%d", numSets));
+                text_numSets.setText(String.format("%d", numSets)); // why is this underlined
+            }
+        });
+
+        button_setsPlus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int numSets = Integer.parseInt(text_numSets.getText().toString());
+                text_numSets.setText(String.format("%d", ++numSets)); // why is this underlined
             }
         });
 
@@ -143,6 +148,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 removeView(exerciseView);
             }
         });
+
+        layoutList.addView(exerciseView);
     }
 
     private void removeView(View view){
