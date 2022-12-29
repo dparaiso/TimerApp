@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText second2Input;
     private EditText minute2Input;
     boolean secondsCheck = false;
+    boolean isSecondsCheck = false;
+    boolean isSecondsCheck2 = false;
     private int numSets;
 
     @Override
@@ -123,6 +125,12 @@ public class MainActivity extends AppCompatActivity {
                         Editable edible = new SpannableStringBuilder(tmp);
                         secondInput.setText(edible);
                     }
+//
+//                    isSecondsCheck = CheckSeconds();
+//                    if(isSecondsCheck){
+//                        secondInput.setError("Invalid seconds, set to under 60!");
+//
+//                    }
                 }
             }
         });
@@ -151,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
                         Editable edible = new SpannableStringBuilder(tmp);
                         second2Input.setText(edible);
                     }
+//                    isSecondsCheck2 = CheckSeconds2();
+//                    if(isSecondsCheck2){
+//                        second2Input.setError("Invalid seconds, set to under 60!");
+//
+//                    }
                 }
             }
         });
@@ -173,6 +186,14 @@ public class MainActivity extends AppCompatActivity {
     private boolean CheckSeconds(){
         if (Integer.parseInt(secondInput.getText().toString()) >= 60){
             secondInput.setError("Invalid seconds, set to under 60!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean CheckSeconds2(){
+        if (Integer.parseInt(second2Input.getText().toString()) >= 60){
+            second2Input.setError("Invalid seconds, set to under 60!");
             return false;
         }
         return true;
