@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.util.Locale;
 import android.widget.Toast;
 
-
 public class PrepareActivity extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS_DEFAULT = 5000;
 
