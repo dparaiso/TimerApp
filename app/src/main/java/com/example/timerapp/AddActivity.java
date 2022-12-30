@@ -3,6 +3,7 @@ package com.example.timerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,6 +22,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private Button buttonAdd;
     private Button buttonSubmitWorkout;
     private Workout workout = new Workout();
+//    private Presets presets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,16 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.button_submit_list:
 
                 if(checkValidityAndUpdate()){
+                    SharedPreferences sharePref = getSharedPreferences("appData", MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String json = sharePref.getString("presetData", null);
+                    Presets presets = gson.fromJson(json, Presets.class);
+                    presets.addPreset(workout);
+
+                    json = gson.toJson(presets);
+                    SharedPreferences.Editor editor = sharePref.edit();
+                    editor.putString("presetData", json);
+                    editor.apply();
 
                     Intent intent = new Intent(AddActivity.this, QuickStartPage.class);
                     Bundle bundle = new Bundle();
