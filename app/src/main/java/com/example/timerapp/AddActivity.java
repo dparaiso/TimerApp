@@ -3,9 +3,8 @@ package com.example.timerapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +22,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private Button buttonAdd;
     private Button buttonSubmitWorkout;
     private Workout workout = new Workout();
+//    private Presets presets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +42,37 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
 
             case R.id.button_add:
+
                 addView();
+
                 break;
 
             case R.id.button_submit_list:
 
                 if(checkValidityAndUpdate()){
-                    Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                    SharedPreferences sharePref = getSharedPreferences("appData", MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String json = sharePref.getString("presetData", null);
+                    Presets presets = gson.fromJson(json, Presets.class);
+                    presets.addPreset(workout);
+
+                    json = gson.toJson(presets);
+                    SharedPreferences.Editor editor = sharePref.edit();
+                    editor.putString("presetData", json);
+                    editor.apply();
+
+                    Intent intent = new Intent(AddActivity.this, QuickStartPage.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list", workout);
                     intent.putExtras(bundle);
                     intent.putExtra("Presets", true);
+                    finish();
                     startActivity(intent);
+
                 }
 
                 break;
+
         }
     }
 
@@ -73,37 +91,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             EditText restSeconds = (EditText) findViewById(R.id.rest_seconds);
             TextView numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
 
-            if (!checkValidTimes(workSeconds, workMinutes)){
-                Toast.makeText(this, "Must Enter Work Time!", Toast.LENGTH_SHORT).show();
+            if (!checkValidTimes(workSeconds, restSeconds)){
+                Toast.makeText(this, "Times entered are not valid!", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
-            Exercise newExercise = new Exercise();
-
-            //add to exercise and error check
-            if(!workMinutes.getText().toString().matches("")){
-                newExercise.setWorkMinutes(Integer.parseInt(workMinutes.getText().toString()));
-            }else{
-                newExercise.setWorkMinutes(0);
-            }
-
-            if(!workSeconds.getText().toString().matches("")){
-                newExercise.setWorkSeconds(Integer.parseInt(workSeconds.getText().toString()));
-            }else{
-                newExercise.setWorkSeconds(0);
-            }
-
-            if(!restMinutes.getText().toString().matches("")){
-                newExercise.setRestMinutes(Integer.parseInt(restMinutes.getText().toString()));
-            }else{
-                newExercise.setRestMinutes(0);
-            }
-
-            if(!restSeconds.getText().toString().matches("")){
-                newExercise.setRestSeconds(Integer.parseInt(restSeconds.getText().toString()));
-            }else{
-                newExercise.setRestSeconds(0);
-            }
+            Exercise newExercise = new Exercise(
+                    exerciseName.getText().toString(),
+                    Integer.parseInt(workMinutes.getText().toString()),
+                    Integer.parseInt(workSeconds.getText().toString()),
+                    Integer.parseInt(restMinutes.getText().toString()),
+                    Integer.parseInt(restSeconds.getText().toString()),
+                    Integer.parseInt(numSets.getText().toString())
+            );
 
             workout.addExercise(newExercise);
         }
@@ -115,9 +115,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         return true;
     }
 
-    private boolean checkValidTimes(EditText workSeconds, EditText workMinutes){
-        if ( workSeconds.getText().toString().matches("") || workSeconds.getText().toString().matches("00")
-            && workMinutes.getText().toString().matches("") || workMinutes.getText().toString().matches("00")){
+    private boolean checkValidTimes(EditText workSeconds, EditText restSeconds){
+        if ( workSeconds.getText().toString().equals("") || workSeconds.getText().toString().equals("0") || workSeconds.getText().toString().equals("00") ){
+            return false;
+        }
+        if ( restSeconds.getText().toString().equals("") || restSeconds.getText().toString().equals("0") || restSeconds.getText().toString().equals("00") ){
             return false;
         }
         return true;
@@ -127,10 +129,10 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         final View exerciseView = getLayoutInflater().inflate(R.layout.add_exercise, null, false); // add_exercise.xml
 
         EditText text_exerciseName = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
-        final EditText text_workMinutes = (EditText) exerciseView.findViewById(R.id.work_minutes);
-        final EditText text_workSeconds = (EditText) exerciseView.findViewById(R.id.work_seconds);
-        final EditText text_restMinutes = (EditText) exerciseView.findViewById(R.id.rest_minutes);
-        final EditText text_restSeconds = (EditText) exerciseView.findViewById(R.id.rest_seconds);
+        EditText text_workMinutes = (EditText) exerciseView.findViewById(R.id.work_minutes);
+        EditText text_workSeconds = (EditText) exerciseView.findViewById(R.id.work_seconds);
+        EditText text_restMinutes = (EditText) exerciseView.findViewById(R.id.rest_minutes);
+        EditText text_restSeconds = (EditText) exerciseView.findViewById(R.id.rest_seconds);
         final TextView text_numSets = (TextView) exerciseView.findViewById(R.id.text_numSets);
         Button button_setsPlus = (Button) exerciseView.findViewById(R.id.plus);
         Button button_setsMinus = (Button) exerciseView.findViewById(R.id.minus);
@@ -160,72 +162,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v){
                 removeView(exerciseView);
-            }
-        });
-
-        text_workMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(text_workMinutes.getText().toString().length() == 1){
-                        String tmp = "0";
-                        tmp = tmp + text_workMinutes.getText().toString();
-                        Editable edible = new SpannableStringBuilder(tmp);
-                        text_workMinutes.setText(edible);
-                    }
-                }
-            }
-        });
-
-        text_workSeconds.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(text_workSeconds.getText().toString().length() == 1){
-                        String tmp = "0";
-                        tmp = tmp + text_workSeconds.getText().toString();
-                        Editable edible = new SpannableStringBuilder(tmp);
-                        text_workSeconds.setText(edible);
-                    }
-
-                    if(text_workSeconds.getText().toString().length() > 1 && Integer.parseInt(text_workSeconds.getText().toString()) >= 60){
-                        text_workSeconds.setError("Invalid seconds, set to under 60!");
-                        return;
-                    }
-                }
-            }
-        });
-
-        text_restMinutes.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(text_workMinutes.getText().toString().length() == 1){
-                        String tmp = "0";
-                        tmp = tmp + text_workMinutes.getText().toString();
-                        Editable edible = new SpannableStringBuilder(tmp);
-                        text_workMinutes.setText(edible);
-                    }
-                }
-            }
-        });
-
-        text_restSeconds.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if(text_restSeconds.getText().toString().length() == 1){
-                        String tmp = "0";
-                        tmp = tmp + text_restSeconds.getText().toString();
-                        Editable edible = new SpannableStringBuilder(tmp);
-                        text_restSeconds.setText(edible);
-                    }
-
-                    if(text_restSeconds.getText().toString().length() > 1 && Integer.parseInt(text_restSeconds.getText().toString()) >= 60){
-                        text_restSeconds.setError("Invalid seconds, set to under 60!");
-                        return;
-                    }
-                }
             }
         });
 
