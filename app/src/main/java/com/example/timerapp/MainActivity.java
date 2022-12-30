@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bundle extras = getIntent().getExtras();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if (extras != null && extras.containsKey("Presets")) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.view_pager, AddActivityPage.class, null)
-                    .commit();
-        }
+//        Bundle extras = getIntent().getExtras();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        if (extras != null && extras.containsKey("Presets")) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.view_pager, AddActivityPage.class, null)
+//                    .commit();
+//        }
         quickFrag = new QuickStartPage();
         addFrag = new AddActivityPage();
 
