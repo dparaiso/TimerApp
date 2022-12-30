@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,19 +43,27 @@ public class AddActivityPage extends Fragment{
                 startActivity(intent);
             }
         });
+        layoutList = view.findViewById(R.id.layout_list);
 
         // Display the list of workouts
         SharedPreferences sharedPref = getActivity().getBaseContext().getSharedPreferences("app_data", MODE_PRIVATE);
         Gson gson = new Gson();
-        
-
+        String json = sharedPref.getString("presetData", null);
+        Presets presets = gson.fromJson(json, Presets.class);
+        if (presets != null){
+            for (int i = 0; i < presets.getPresetCount(); i++){
+                Workout w = presets.getWorkout(i);
+                String name = w.getWorkoutName();
+                addView(name);
+            }
+        }
         return view;
     }
 
     private void addView(String name){
-        final View exerciseView = getLayoutInflater().inflate(R.layout.view_workout, null, false);
-        EditText text_exerciseName = (EditText) exerciseView.findViewById(R.id.edit_exercise_name);
-        ImageView play_workout = (ImageView) exerciseView.findViewById(R.id.workout_play);
+        View workoutView = getLayoutInflater().inflate(R.layout.view_workout, null, false);
+        EditText text_workoutName = (EditText) workoutView.findViewById(R.id.edit_workout_name);
+        ImageView play_workout = (ImageView) workoutView.findViewById(R.id.workout_play);
 
         play_workout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +72,9 @@ public class AddActivityPage extends Fragment{
             }
         });
 
-        text_exerciseName.setText(name);
+        text_workoutName.setText(name);
+        layoutList.addView(workoutView);
+       return;
     }
 
     private void playWorkout(String name){

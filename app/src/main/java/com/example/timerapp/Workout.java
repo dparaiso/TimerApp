@@ -14,6 +14,8 @@ public class Workout implements Serializable {
 
     // Get functions
 
+    public String getWorkoutName(){ return workoutName; }
+
     public ArrayList<Exercise> getExercises(){ return exercises; }
 
     public int getNumExercises(){ return this.exercises.size(); }
