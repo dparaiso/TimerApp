@@ -87,7 +87,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     Integer.parseInt(restMinutes.getText().toString()),
                     Integer.parseInt(restSeconds.getText().toString()),
                     Integer.parseInt(numSets.getText().toString())
-                    );
+            );
 
             workout.addExercise(newExercise);
         }

@@ -71,7 +71,7 @@
         <TextView
             android:id="@+id/text_numSets"
             android:layout_width="63dp"
-            android:layout_height="match_parent"
+            android:layout_height="19dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
@@ -183,11 +183,8 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/black" />
+
+
 
 
 </LinearLayout>
