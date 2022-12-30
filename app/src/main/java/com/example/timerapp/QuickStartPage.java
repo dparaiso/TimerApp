@@ -46,6 +46,7 @@ public class QuickStartPage extends Fragment {
         minuteInput = view.findViewById(R.id.minutes);
         second2Input = view.findViewById(R.id.seconds2);
         minute2Input = view.findViewById(R.id.minutes2);
+
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
